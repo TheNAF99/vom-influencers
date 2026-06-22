@@ -740,11 +740,18 @@ function submitLead() {
     payment:    document.getElementById('p-online').classList.contains('on') ? 'رابط أونلاين' : 'تحويل بنكي'
   };
 
-  fetch('https://script.google.com/a/macros/getvom.com/s/AKfycbxFkAwCJBMCAi-6aJI0uPx4cyKuXHNoMDgQ70fUm0g-En704rr0hlyCXYgNZCKVSyma/exec', {
+  var formData = new FormData();
+  formData.append('entry.108780551', payload.influencer);
+  formData.append('entry.243383292', payload.phone);
+  formData.append('entry.808884717', payload.email);
+  formData.append('entry.654077583', payload.pkg);
+  formData.append('entry.1635539201', payload.submitter);
+  formData.append('entry.103399966', payload.payment);
+
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSdNRBwyIbyacGWPuCjgL9e8xwc6bMHNc8-saFxBt6dn1CIlyA/formResponse', {
     method: 'POST',
     mode: 'no-cors',
-    headers: {'Content-Type': 'text/plain'},
-    body: JSON.stringify(payload)
+    body: formData
   })
   .then(() => {
     document.getElementById('toast').style.display = 'block';
