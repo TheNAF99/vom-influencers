@@ -740,19 +740,12 @@ function submitLead() {
     payment:    document.getElementById('p-online').classList.contains('on') ? 'رابط أونلاين' : 'تحويل بنكي'
   };
 
-  var formData = new FormData();
-  formData.append('entry.108780551', payload.influencer);
-  formData.append('entry.243383292', payload.phone);
-  formData.append('entry.808884717', payload.email);
-  formData.append('entry.654077583', payload.pkg);
-  formData.append('entry.1635539201', payload.submitter);
-  formData.append('entry.103399966', payload.payment);
-
-  fetch('https://docs.google.com/forms/d/e/1FAIpQLSdNRBwyIbyacGWPuCjgL9e8xwc6bMHNc8-saFxBt6dn1CIlyA/formResponse', {
+  fetch('https://formspree.io/f/xeebqava', {
     method: 'POST',
-    mode: 'no-cors',
-    body: formData
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify(payload)
   })
+  .then(r => r.json())
   .then(() => {
     document.getElementById('toast').style.display = 'block';
     ['f-influencer','f-phone','f-email','f-submitter'].forEach(id => document.getElementById(id).value = '');
