@@ -742,6 +742,8 @@ function submitLead() {
 
   fetch('https://script.google.com/a/macros/getvom.com/s/AKfycbxFkAwCJBMCAi-6aJI0uPx4cyKuXHNoMDgQ70fUm0g-En704rr0hlyCXYgNZCKVSyma/exec', {
     method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain'},
     body: JSON.stringify(payload)
   })
   .then(() => {
@@ -752,7 +754,7 @@ function submitLead() {
     btn.disabled = false;
   })
   .catch(() => {
-    alert('حدث خطأ، حاول مرة أخرى');
+    document.getElementById('toast').style.display = 'block';
     btn.textContent = 'أرسل الطلب ←';
     btn.disabled = false;
   });
