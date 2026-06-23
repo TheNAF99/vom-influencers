@@ -725,7 +725,21 @@ function preselectPkg(pkg) {
 
 function submitLead() {
   const vals = ['f-influencer','f-phone','f-email','f-pkg','f-submitter'].map(id => document.getElementById(id).value.trim());
-  if (vals.some(v => !v)) { alert('يرجى تعبئة جميع الحقول'); return; }
+  const fields = [
+    {id: 'f-influencer', label: 'اسم المؤثر'},
+    {id: 'f-phone', label: 'رقم الجوال'},
+    {id: 'f-email', label: 'البريد الإلكتروني'},
+    {id: 'f-pkg', label: 'الباقة'},
+    {id: 'f-submitter', label: 'اسم مقدم الطلب'},
+  ];
+  const empty = fields.filter(f => !document.getElementById(f.id).value.trim());
+  if (empty.length > 0) {
+    alert('يرجى تعبئة: ' + empty.map(f => f.label).join(' · '));
+    document.getElementById(empty[0].id).focus();
+    btn.textContent = 'أرسل الطلب ←';
+    btn.disabled = false;
+    return;
+  }
 
   const btn = document.querySelector('.sub-btn');
   btn.disabled = true;
